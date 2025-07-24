@@ -1,6 +1,7 @@
+
 import { Link, useRouter, useNavigation } from "expo-router";
 import { useState } from "react";
-import { View, Image, TouchableOpacity, Text } from "react-native";
+import { View, Image, TouchableOpacity, Text, Modal } from "react-native";
 
 export default function Index() {
   const [popupObjetivo, setPopupObjetivo] = useState(false);
@@ -16,19 +17,34 @@ export default function Index() {
         />
       </View>
 
-      {/* Botões */}
+      {/* BOTÕES */}
       <View className="gap-6">
-        <TouchableOpacity
+        {/* Botão 1 */}
+        <TouchableOpacity           
           onPress={() => setPopupObjetivo(true)}
           className="w-52 h-14 mt-0 bg-[#8BAA91] items-center justify-center rounded-full">
             <Text className="text-[#2E4A62] font-serif text-2xl font-bold">Objetivo</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push('/participar')}
+        {/* Botão 2 */}
+        <TouchableOpacity           
+          onPress={() => router.push('./participar')}
           className="w-52 h-14 mt-0 bg-[#8BAA91] items-center justify-center rounded-full">
             <Text className="text-[#2E4A62] font-serif text-2xl font-bold">Participar</Text>
         </TouchableOpacity>
       </View>
+
+      {/* POP-UP OBJETIVO */}
+      <Modal
+        visible={popupObjetivo}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setPopupObjetivo(false)}>
+          <View className="w-full h-full bg-[#547070] items-center justify-center" >
+            {/* <View className="w-96 h-5/6 bg-[#ffffffb4]">
+
+            </View> */}
+          </View>
+      </Modal>
 
       {/* Rodapé */}
       <View className="bottom-6 absolute">
