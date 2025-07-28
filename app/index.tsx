@@ -14,7 +14,7 @@ export default function Index() {
       <View className="w-full items-center">
         <Image
           source={require('../assets/imagens-icons/logoCalmaMente.jpg')}
-          className="w-96 h-96 items-center justify-center mt-44 "
+          className="w-96 h-96 items-center justify-center mt-36 "
         />
       </View>
 
@@ -23,13 +23,13 @@ export default function Index() {
         {/* Botão 1 */}
         <TouchableOpacity           
           onPress={() => setPopupObjetivo(true)}
-          className="w-52 h-14 mt-0 bg-[#8BAA91] items-center justify-center rounded-full">
+          className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-2xl font-bold">Objetivo</Text>
         </TouchableOpacity>
         {/* Botão 2 */}
         <TouchableOpacity           
           onPress={() => router.push('./participar')}
-          className="w-52 h-14 mt-0 bg-[#8BAA91] items-center justify-center rounded-full">
+          className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-2xl font-bold">Participar</Text>
         </TouchableOpacity>
       </View>
