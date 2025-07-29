@@ -1,7 +1,6 @@
-
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
-import { FontAwesome, Feather, Ionicons, Entypo } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { View, Image, TouchableOpacity, Text, Modal, ScrollView } from "react-native";
 
 export default function Index() {

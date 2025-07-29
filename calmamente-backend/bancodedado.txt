@@ -1,0 +1,7 @@
+CREATE TABLE usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  apelido VARCHAR(50) DEFAULT NULL,
+  tipo_perfil ENUM('Desabafar', 'Ouvir') NOT NULL,
+  notificacoes ENUM('sim','nao') DEFAULT 'nao',
+  denuncias INT DEFAULT 0
+);

@@ -1,6 +1,6 @@
-import { Link, useRouter, useNavigation } from "expo-router";
+import { Link, useRouter} from "expo-router";
 import { useState } from "react";
-import { FontAwesome, Feather, Ionicons, Entypo } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { View, Image, TouchableOpacity, Text, TextInput, Modal, ScrollView } from "react-native";
 
 export default function Participar() {
@@ -34,16 +34,17 @@ export default function Participar() {
         </TouchableOpacity>
         {/* Botão 2 */}
         <TouchableOpacity           
-          onPress={() => router.push('./participar')}
+          onPress={() => router.push('./desabafar')}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-xl font-bold">Quero Desabafar</Text>
         </TouchableOpacity>
+        {/* Botão 3 */}
         <TouchableOpacity           
-          onPress={() => setPopupParticipar(true)}
+          onPress={() => router.push('./ouvinte')}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-xl font-bold">Quero Ouvir</Text>
         </TouchableOpacity>
-        {/* Botão 2 */}
+        {/* Botão 4 */}
         <TouchableOpacity           
           onPress={() => router.push("/")}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
