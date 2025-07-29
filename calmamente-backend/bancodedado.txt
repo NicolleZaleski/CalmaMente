@@ -2,6 +2,9 @@ CREATE TABLE usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,
   apelido VARCHAR(50) DEFAULT NULL,
   tipo_perfil ENUM('Desabafar', 'Ouvir') NOT NULL,
+  em_conversa ENUM('sim', 'nao') DEFAULT 'nao',
   notificacoes ENUM('sim','nao') DEFAULT 'nao',
+  aceitou_convite ENUM('sim', 'nao') DEFAULT 'nao',
+  online_perfil ENUM('sim','nao') DEFAULT 'nao',
   denuncias INT DEFAULT 0
 );
