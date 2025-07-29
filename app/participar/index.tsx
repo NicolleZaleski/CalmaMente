@@ -6,17 +6,40 @@ import { View, Image, TouchableOpacity, Text, TextInput, Modal, ScrollView } fro
 export default function Participar() {
   const [popupParticipar, setPopupParticipar] = useState(false);
   const router = useRouter();
+  const [apelido, setApelido] = useState("");
+
+  async function salvarApelido() {
+    if (apelido.trim() === "") return;
+
+    try{
+      const response = await fetch("http://10.28.0.145/react/CalmaMente/calmamente-backend/atualizar_apelido.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `id=1&apelido=${encodeURIComponent(apelido)}`
+      });
+
+      const resultado = await response.text();
+      console.log("Resposta do servidor:", resultado);
+    } catch (error){
+      console.error("Erro ao salvar apelido:", error);
+    }
+  }
   
   return (
     <View className="flex-1 p-5 items-center bg-[#9DC8C8] w-full">
       {/* Caixa de input */}
       <View className="w-full mt-20 items-center">
         <TextInput
+        value={apelido}
+        onChangeText={setApelido}
           className="w-96 h-11 bg-[#bad8d8] rounded-full px-5 text-lg font-serif text-[#2E4A62]"
           placeholder="Digite seu apelido (Opcional)"
           placeholderTextColor="[#2E4A62]"
         />
       </View>
+
       {/* Logo */}
       <View className="w-full items-center">
         <Image
@@ -24,6 +47,7 @@ export default function Participar() {
           className="w-96 h-96 items-center justify-center mt-5 "
         />
       </View>
+
       {/* Botões */}
       <View className="gap-6">
         {/* Botão 1 */}
@@ -34,13 +58,19 @@ export default function Participar() {
         </TouchableOpacity>
         {/* Botão 2 */}
         <TouchableOpacity           
-          onPress={() => router.push('./desabafar')}
+          onPress={ async () => {
+            await salvarApelido();
+            router.push('./desabafar');
+          }}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-xl font-bold">Quero Desabafar</Text>
         </TouchableOpacity>
         {/* Botão 3 */}
         <TouchableOpacity           
-          onPress={() => router.push('./ouvinte')}
+          onPress={ async () => {
+            await salvarApelido();
+            router.push('./ouvinte');
+          }}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-xl font-bold">Quero Ouvir</Text>
         </TouchableOpacity>
