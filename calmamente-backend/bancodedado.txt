@@ -8,3 +8,17 @@ CREATE TABLE usuarios (
   online_perfil ENUM('sim','nao') DEFAULT 'nao',
   denuncias INT DEFAULT 0
 );
+
+
+
+
+ Durante a apresentação, explique que você simulou o que no 
+ futuro seria feito com banco/sockets, mas optou por focar na
+ lógica para facilitar a entrega e demonstrar o raciocínio 
+ completo.
+
+
+Se quiser, posso:
+Te ajudar a montar os arquivos agora
+Criar um README.md com explicações de cada parte
+Te orientar na geração do APK
