@@ -1,6 +1,6 @@
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
-import { Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { View, Image, TouchableOpacity, Text, Modal, ScrollView } from "react-native";
 
 export default function Index() {
@@ -98,7 +98,7 @@ export default function Index() {
                     elevation: 4,
                   }}>
                     <Text className="text-[#F4A896] text-xl font-bold font-serif">
-                      <Entypo name="arrow-bold-left" color={"#F4A896"} size={20}/> Voltar
+                      <Ionicons name="arrow-undo" color={"#F4A896"} size={20}/> Voltar
                     </Text>
                   </TouchableOpacity>
               </View>
