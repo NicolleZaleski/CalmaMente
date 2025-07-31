@@ -1,5 +1,5 @@
 import { Link, useRouter} from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { View, Image, TouchableOpacity, Text, TextInput, Modal, ScrollView } from "react-native";
 
@@ -7,36 +7,47 @@ export default function Participar() {
   const [popupParticipar, setPopupParticipar] = useState(false);
   const router = useRouter();
   const [apelido, setApelido] = useState("");
+  const [banido, setBanido] = useState(false)
 
-  async function salvarApelido() {
-    if (apelido.trim() === "") return;
+  function Entrar() {
+    const apelidoFormato = apelido.trim().toLowerCase();
 
-    try{
-      const response = await fetch("http://10.28.0.145/react/CalmaMente/calmamente-backend/atualizar_apelido.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `id=1&apelido=${encodeURIComponent(apelido)}`
-      });
-
-      const resultado = await response.text();
-      console.log("Resposta do servidor:", resultado);
-    } catch (error){
-      console.error("Erro ao salvar apelido:", error);
+    if (apelidoFormato === "saruman"){
+      setBanido(true);
+      return;
     }
   }
+
+  if (banido){
+    return(
+      <View className="flex-1 justify-center items-center bg-[#9DC8C8] w-full h-full">
+        <View className="bg-[#ffffffa4] w-96 h-72 items-center rounded-3xl">
+          <View className="w-80 pt-5">
+            <Text className="text-[##2E4A62] text-center text-2xl font-bold pt-3">Banido do CalmaMente{"\n"}</Text>
+            <Text className="text-[##2E4A62] text-justify text-lg pt-3">
+              Infelizmente, seu acesso foi bloqueado após muitas denúncias.
+              Nosso objetivo é manter um ambiente seguro e respeitoso para todos.{"\n"}
+              Por favor, reflita sobre a importância do respeito e empatia.{"\n"} 
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   
   return (
     <View className="flex-1 p-5 items-center bg-[#9DC8C8] w-full">
       {/* Caixa de input */}
       <View className="w-full mt-20 items-center">
         <TextInput
-        value={apelido}
-        onChangeText={setApelido}
+          value={apelido}
+          onChangeText={setApelido}
           className="w-96 h-11 bg-[#bad8d8] rounded-full px-5 text-lg font-serif text-[#2E4A62]"
           placeholder="Digite seu apelido (Opcional)"
           placeholderTextColor="[#2E4A62]"
+          returnKeyLabel="done"
+          onSubmitEditing={Entrar}
         />
       </View>
 
@@ -58,19 +69,13 @@ export default function Participar() {
         </TouchableOpacity>
         {/* Botão 2 */}
         <TouchableOpacity           
-          onPress={ async () => {
-            await salvarApelido();
-            router.push('./desabafar');
-          }}
+          onPress={() => router.push('./desabafar')}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-xl font-bold">Quero Desabafar</Text>
         </TouchableOpacity>
         {/* Botão 3 */}
         <TouchableOpacity           
-          onPress={ async () => {
-            await salvarApelido();
-            router.push('./ouvinte');
-          }}
+          onPress={() => router.push('./ouvinte')}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-xl font-bold">Quero Ouvir</Text>
         </TouchableOpacity>
@@ -161,7 +166,7 @@ export default function Participar() {
                 </ScrollView>
                 <TouchableOpacity
                   onPress={() => setPopupParticipar(false)}
-                  className="mt-4 w-28 h-10 items-center justify-center bg-[#355C4B] rounded-full"
+                  className="mt-4 w-28 h-10 items-center justify-center bg-[#355C4B] rounded-full flex-row GAP"
                   style={{
                     shadowColor: '#000',
                     shadowOffset: { width: 8, height: 4 },
@@ -169,9 +174,10 @@ export default function Participar() {
                     shadowRadius: 2,
                     elevation: 4,
                   }}>
-                    <Text className="text-[#F4A896] text-xl font-bold font-serif">
-                      <Ionicons name="arrow-undo" color={"#F4A896"} size={20}/> Voltar
+                    <Text className="text-[#F4A896] text-xl">
+                      <Ionicons name="arrow-undo" color={"#F4A896"} size={19}/> 
                     </Text>
+                    <Text className="text-[#F4A896] text-xl font-bold font-serif">Voltar</Text>
                   </TouchableOpacity>
               </View>
             </View>

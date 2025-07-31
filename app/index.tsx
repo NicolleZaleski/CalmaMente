@@ -89,7 +89,7 @@ export default function Index() {
                 </ScrollView>
                 <TouchableOpacity
                   onPress={() => setPopupObjetivo(false)}
-                  className="mt-4 w-28 h-10 items-center justify-center bg-[#355C4B] rounded-full"
+                  className="mt-4 w-28 h-10 items-center justify-center bg-[#355C4B] rounded-full flex-row GAP"
                   style={{
                     shadowColor: '#000',
                     shadowOffset: { width: 8, height: 4 },
@@ -97,9 +97,10 @@ export default function Index() {
                     shadowRadius: 2,
                     elevation: 4,
                   }}>
-                    <Text className="text-[#F4A896] text-xl font-bold font-serif">
-                      <Ionicons name="arrow-undo" color={"#F4A896"} size={20}/> Voltar
+                    <Text className="text-[#F4A896] text-xl">
+                      <Ionicons name="arrow-undo" color={"#F4A896"} size={19}/> 
                     </Text>
+                    <Text className="text-[#F4A896] text-xl font-bold font-serif">Voltar</Text> 
                   </TouchableOpacity>
               </View>
             </View>
