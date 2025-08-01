@@ -13,7 +13,7 @@ CREATE TABLE usuarios (
 
 Apelidos:
   Saruman - perfil banido;
-  vampira pistola - uma denúncia 
+  VampiraVintage - uma denúncia 
 
 
 

@@ -110,7 +110,8 @@ export default function Participar() {
             </View>
 
             <View className="flex-1 bg-[#00000085] justify-center items-center">
-              <View className="bg-[#ffffffa4] rounded-3xl p-6 w-11/12 h-5/6">
+              <View className="bg-[#ffffffa4]  p-6 w-11/12 h-5/6"
+                style={{ borderRadius: 30}}>
                 <View className="w-full items-center pt-3">
                   <Text className="text-[#2E4A62] font-serif text-2xl font-bold text-center"
                     >Usuários
