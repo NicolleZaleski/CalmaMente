@@ -120,7 +120,7 @@ export default function Desabafar() {
                 <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de te ouvir, aceita?</Text>
                 <View className="flex-row w-full justify-end gap-3">
                   <TouchableOpacity className="bg-[#3B6839] w-16 h-8 rounded-full items-center justify-center"
-                     onPress={() => router.push('./chats/chatDesabafo1')}>
+                     onPress={() => router.push({ pathname: './chatDesabafoAnon', params: {nome: 'Anônimo'}})}>
                     <Text className="text-[#FFFFFF] font-serif font-bold text-base">Sim</Text>
                   </TouchableOpacity>
                   <TouchableOpacity className="bg-[#A71212] w-16 h-8 rounded-full items-center justify-center mr-3"
@@ -149,7 +149,7 @@ export default function Desabafar() {
                 <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de te ouvir, aceita?</Text>
                 <View className="flex-row w-full justify-end gap-3">
                   <TouchableOpacity className="bg-[#3B6839] w-16 h-8 rounded-full items-center justify-center"
-                     onPress={() => router.push('./chatDesabafo2')}>
+                     onPress={() => router.push({ pathname: './chatDesabafoAnon', params:{nome: 'VampiraVintage'}})}>
                     <Text className="text-[#FFFFFF] font-serif font-bold text-base">Sim</Text>
                   </TouchableOpacity>
                   <TouchableOpacity className="bg-[#A71212] w-16 h-8 rounded-full items-center justify-center mr-3"
@@ -178,7 +178,7 @@ export default function Desabafar() {
               <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de te ouvir, aceita?</Text>
               <View className="flex-row w-full justify-end gap-3">
                 <TouchableOpacity className="bg-[#3B6839] w-16 h-8 rounded-full items-center justify-center"
-                   onPress={() => router.push('./chatDesabafo3')}>
+                   onPress={() => router.push({ pathname: './chatDesabafoAnon', params:{nome: 'NirvanaS2'}})}>
                   <Text className="text-[#FFFFFF] font-serif font-bold text-base">Sim</Text>
                 </TouchableOpacity>
                 <TouchableOpacity className="bg-[#A71212] w-16 h-8 rounded-full items-center justify-center mr-3"
