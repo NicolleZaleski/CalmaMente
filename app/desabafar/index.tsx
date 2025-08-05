@@ -1,7 +1,7 @@
-import { Link, useRouter, useNavigation } from "expo-router";
+import { useRouter, useNavigation } from "expo-router";
 import { useEffect, useState,useRef } from "react";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
-import { View, Image, TouchableOpacity, Text, TextInput, Modal, ScrollView, Animated, Easing } from "react-native";
+import { View, Image, TouchableOpacity, Text, ScrollView, Animated, Easing } from "react-native";
 
 function IconeCarregando(){
   const rotaAnimada = useRef(new Animated.Value(0)).current;
