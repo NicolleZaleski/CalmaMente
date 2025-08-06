@@ -8,6 +8,7 @@ export default function Participar() {
   const router = useRouter();
   const [apelido, setApelido] = useState("");
   const [banido, setBanido] = useState(false)
+  const [temDenuncia, setTemDenuncia] = useState(false);
 
   function Entrar() {
     const apelidoFormato = apelido.trim().toLowerCase();
@@ -38,11 +39,23 @@ export default function Participar() {
   
   return (
     <View className="flex-1 p-5 items-center bg-[#9DC8C8] w-full">
+      {/* Mensagem de denuncia */}
+      {temDenuncia && (
+        <View className="w-11/12 bg-[#ffffff88] p-3 mb-3 absolute top-1"
+        style={{borderRadius: 30}}>
+          <Text className="text-[#A71212] font-serif text-sm text-center font-bold">
+            ⚠️ Este perfil possui 1 denúncia. O limite é 7 antes de ser banido.
+          </Text>
+        </View>
+      )}
       {/* Caixa de input */}
       <View className="w-full mt-20 items-center">
         <TextInput
           value={apelido}
-          onChangeText={setApelido}
+          onChangeText={(text) => {
+            setApelido(text);
+            setTemDenuncia(text.trim().toLowerCase() === "vampiravintage" || text.trim().toLowerCase() === "bolodecenouras2");
+          }}
           className="w-96 h-11 bg-[#bad8d8] rounded-full px-5 text-lg font-serif text-[#2E4A62]"
           placeholder="Digite seu apelido (Opcional)"
           placeholderTextColor="[#2E4A62]"
@@ -69,13 +82,39 @@ export default function Participar() {
         </TouchableOpacity>
         {/* Botão 2 */}
         <TouchableOpacity           
-          onPress={() => router.push('./desabafar')}
+          onPress={() => {
+            const nomeFormatado = apelido.trim().toLowerCase();
+
+            if (nomeFormatado === 'bolodecenouras2'){
+              setTemDenuncia(true);
+            } else{
+              setTemDenuncia(false);
+            }
+
+            router.push({
+              pathname: '/desabafar',
+              params: {apelido: nomeFormatado},
+            });
+          }}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-xl font-bold">Quero Desabafar</Text>
         </TouchableOpacity>
         {/* Botão 3 */}
         <TouchableOpacity           
-          onPress={() => router.push('./ouvinte')}
+          onPress={() => {
+            const nomeFormatado = apelido.trim().toLowerCase();
+
+            if (nomeFormatado === 'vampiravintage'){
+              setTemDenuncia(true);
+            } else{
+              setTemDenuncia(false);
+            }
+
+            router.push({
+              pathname: './ouvinte',
+              params: {apelido: nomeFormatado},
+            });
+          }}
           className="w-52 h-14 mt-0 bg-[#8BAA91] border-4 border-[#8BAA91] items-center justify-center rounded-full active:bg-[#F4A896] active:opacity-100">
             <Text className="text-[#2E4A62] font-serif text-xl font-bold">Quero Ouvir</Text>
         </TouchableOpacity>
@@ -87,7 +126,7 @@ export default function Participar() {
         </TouchableOpacity>
       </View>
 
-      {/* POP-UP OBJETIVO */}
+      {/* POP-UP COMO PARTICIPAR */}
       <Modal
         visible={popupParticipar}
         transparent={true}
@@ -160,9 +199,25 @@ export default function Participar() {
                         <Text className="font-bold font-serif">•</Text>ㅤSão anônimos e seguros.{"\n"}
                         <Text className="font-bold font-serif">•</Text>ㅤPodem encerrar a conversa a qualquer momento.{"\n"}
                         <Text className="font-bold font-serif">•</Text>ㅤTêm a opção de prolongar a conversa.{"\n"}
-                        <Text className="font-bold font-serif">•</Text>ㅤTêm acesso ao botão de reportar em caso de ofensas, condutas abusivas ou desrespeito.
+                        <Text className="font-bold font-serif">•</Text>ㅤTêm acesso ao botão de reportar em caso de ofensas, condutas abusivas ou desrespeito.{"\n\n"}
                       </Text>
                     </View>
+                    <Text className="text-[#2E4A62] w-full font-mono text-base font-light text-justify">
+                      <Text className="font-bold font-serif">Quero Desabafar{"\n"}</Text>
+                      No CalmaMente, prezamos por um ambiente seguro, respeitoso e acolhedor para todos que desejam desabafar ou oferecer escuta.{"\n"}
+                      Por isso, implementamos um sistema de denúncias para ajudar a proteger nossa comunidade de comportamentos inadequados ou ofensivos.{"\n\n"}
+
+                      Como funciona?</Text>
+                      <View className="w-full pl-4">
+                      <Text className="text-[#2E4A62] font-mono text-base font-light text-justify">
+                        <Text className="font-bold font-serif">•</Text>ㅤQualquer pessoa pode ser denunciada caso haja desrespeito, insensibilidade, spam ou qualquer atitude que comprometa o bem-estar da conversa.{"\n"}
+                        <Text className="font-bold font-serif">•</Text>ㅤAs denúncias são anônimas e analisadas com responsabilidade pela nossa equipe.{"\n"}
+                        <Text className="font-bold font-serif">•</Text>ㅤAo receber 1 denúncia, a pessoa será avisada com um alerta visível nas próximas conversas.{"\n"}
+                        <Text className="font-bold font-serif">•</Text>ㅤAo atingir 7 denúncias, o usuário será banido do aplicativo, impedido de acessar ou participar de novas conversas.
+                      </Text>
+                    </View>
+                    
+                  
                     
                 </ScrollView>
                 <TouchableOpacity

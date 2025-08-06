@@ -1,4 +1,4 @@
-import { useRouter, useNavigation } from "expo-router";
+import { useRouter, useNavigation, useLocalSearchParams } from "expo-router";
 import { useEffect, useState,useRef } from "react";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 import { View, Image, TouchableOpacity, Text, Modal, ScrollView, Animated, Easing } from "react-native";
@@ -46,6 +46,19 @@ export default function Ouvinte() {
   const [popup2, setPopup2] = useState(false);
   const [popup3, setPopup3] = useState(false);
   const [recusados, setRecusados] = useState(0);
+  const slideAnim = useRef(new Animated.Value(-200)).current;
+  const { apelido } = useLocalSearchParams();
+  const temDenuncia = apelido === "vampiravintage";
+
+  useEffect(() => {
+    if (popupNotificacao) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [popupNotificacao]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -128,8 +141,10 @@ export default function Ouvinte() {
 
       {/* Pop-up da notificação de novo desabafo */}
       <Modal visible={popupNotificacao} transparent animationType="fade">
-        <View className="flex-1 bg-[#00000088] justify-center items-center">
-          <View className="bg-white w-5/6 p-6 rounded-3xl">
+        <View className="flex-1 bg-[#00000088] justify-start items-center">
+          <Animated.View
+          className="bg-[#ffffff] w-5/6 p-6 rounded-3xl mt-16"
+          style={{ transform: [{ translateY: slideAnim }], borderRadius:30 }}>
             <Text className="text-xl text-[#2E4A62] font-bold mb-3">
               📢 Novo desabafo
             </Text>
@@ -152,7 +167,7 @@ export default function Ouvinte() {
                 <Text className="text-[#2E4A62] font-bold">Cancelar</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </Animated.View>
         </View>
       </Modal>
 
@@ -178,14 +193,14 @@ export default function Ouvinte() {
           <View className="w-full px-3">
             <Text className="text-[#2E4A62] font-serif text-base ml-3">
               Isso pode levar alguns instantes. {"\n"}
-              Estamos conectando você com alguém que quer te ouvir com atenção.
+              Estamos conectando você com alguém que precisa de sua atenção para desabafar.
             </Text>
           </View>
         </View>
       )}
 
       {/* Pop-up de ouvintes disponíveis */}
-      {carregando && (
+      {carregando && !popupNotificacao &&(
         <ScrollView className="flex-1 w-full px-0"
         contentContainerStyle={{ alignItems: "center", paddingTop: 40}}>
           {popup1 && (
@@ -193,10 +208,10 @@ export default function Ouvinte() {
               style={{ borderRadius: 30}}>
               <View className="ml-5">
                 <Text className="text-[#2E4A62] font-serif font-bold text-2xl">GatoDeBotas</Text>
-                <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de te ouvir, aceita?</Text>
+                <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de desabafar, aceita?</Text>
                 <View className="flex-row w-full justify-end gap-3">
                   <TouchableOpacity className="bg-[#3B6839] w-16 h-8 rounded-full items-center justify-center"
-                     onPress={() => router.push({ pathname: './chatDesabafoAnon', params: {nome: 'GatoDeBotas'}})}>
+                     onPress={() => router.push({ pathname: './chatOuvinte', params: {nome: 'GatoDeBotas'}})}>
                     <Text className="text-[#FFFFFF] font-serif font-bold text-base">Sim</Text>
                   </TouchableOpacity>
                   <TouchableOpacity className="bg-[#A71212] w-16 h-8 rounded-full items-center justify-center mr-3"
@@ -222,10 +237,10 @@ export default function Ouvinte() {
               style={{ borderRadius: 30}}>
               <View className="ml-5">
                 <Text className="text-[#2E4A62] font-serif font-bold text-2xl">Anônimo</Text>
-                <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de te ouvir, aceita?</Text>
+                <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de desabafar, aceita?</Text>
                 <View className="flex-row w-full justify-end gap-3">
                   <TouchableOpacity className="bg-[#3B6839] w-16 h-8 rounded-full items-center justify-center"
-                     onPress={() => router.push({ pathname: './chatDesabafoAnon', params:{nome: 'Anônimo'}})}>
+                     onPress={() => router.push({ pathname: './chatOuvinte', params:{nome: 'Anônimo'}})}>
                     <Text className="text-[#FFFFFF] font-serif font-bold text-base">Sim</Text>
                   </TouchableOpacity>
                   <TouchableOpacity className="bg-[#A71212] w-16 h-8 rounded-full items-center justify-center mr-3"
@@ -250,11 +265,11 @@ export default function Ouvinte() {
             <View className="bg-[#f4a79685] w-11/12 h-28 justify-center"
             style={{ borderRadius: 30}}>
             <View className="ml-5">
-              <Text className="text-[#2E4A62] font-serif font-bold text-2xl">BolodeCenousaS2</Text>
-              <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de te ouvir, aceita?</Text>
+              <Text className="text-[#2E4A62] font-serif font-bold text-2xl">BolodeCenouraS2</Text>
+              <Text className="text-[#2E4A62] font-serif font-bold mt-1">Gostaria de desabafar, aceita?</Text>
               <View className="flex-row w-full justify-end gap-3">
                 <TouchableOpacity className="bg-[#3B6839] w-16 h-8 rounded-full items-center justify-center"
-                   onPress={() => router.push({ pathname: './chatDesabafoAnon', params:{nome: 'BolodeCenousaS2'}})}>
+                   onPress={() => router.push({ pathname: './chatOuvinte', params:{nome: 'BolodeCenousaS2'}})}>
                   <Text className="text-[#FFFFFF] font-serif font-bold text-base">Sim</Text>
                 </TouchableOpacity>
                 <TouchableOpacity className="bg-[#A71212] w-16 h-8 rounded-full items-center justify-center mr-3"
@@ -276,6 +291,15 @@ export default function Ouvinte() {
           </View>
           )}
         </ScrollView>
+      )}
+
+      {temDenuncia && (
+        <View className="absolute bottom-32 z-10 w-11/12 items-center bg-[#ffffff88] p-5"
+        style={{borderRadius: 30}}>
+          <Text className="text-[#A71212] font-serif text-sm text-center font-bold">
+            ⚠️ Este perfil possui 1 denúncia. O limite é 7 antes de ser banido.
+          </Text>
+        </View>
       )}
 
       {/* Rodapé */}

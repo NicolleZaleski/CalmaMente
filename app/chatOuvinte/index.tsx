@@ -9,21 +9,36 @@ type Mensagem = {
   tipo: "usuario" | "ouvinte";
 };
 
-export default function ChatDesabafoAnon() {
+export default function ChatOuvinte() {
+  const [tempoRestante, setTempoRestante] = useState(30 * 60);
+  const [popupTempo, setPopupTempo] = useState(false);  
+  const [acelerar, setAcelerar] = useState(false);
+
+  const [mensagens, setMensagens] = useState<Mensagem[]>([]);
+  const [mensagemInput, setMensagemInput] = useState(""); 
+  
   const router = useRouter()
   const { nome } = useLocalSearchParams();
 
-  const [tempoRestante, setTempoRestante] = useState(30 * 60);
-  const [acelerar, setAcelerar] = useState(false);
-
-  const [popupTempo, setPopupTempo] = useState(false);
   const [popupFinalizar, setPopupFinalizar] = useState(false);
   const [popupReportar, setPopupReportar] = useState(false);
   const [popupCertezaReportar, setPopupCertezaReportar] = useState(false);
   const [popupReportado, setPopupReportado] = useState(false);
+  const [popEncerramento, setPopupEncerramento] = useState(false);
+  const [chatEncerrado, setChatEncerrado] = useState(false);
 
-  const [mensagens, setMensagens] = useState<Mensagem[]>([]);
-  const [mensagemInput, setMensagemInput] = useState("");
+  useEffect(() => {
+    setTimeout(() => {
+      setMensagens((prev) => [
+        ...prev,
+          {
+            id: String(prev.length + 1),
+            texto: "Oi...será que eu posso conversar um pouco com você?",
+            tipo: "usuario",
+          },
+      ]);
+    }, 10000);
+  }, []);
 
   const enviarMensagem = () => {
     if (mensagemInput.trim() === "") return;
@@ -31,41 +46,64 @@ export default function ChatDesabafoAnon() {
     const novaMensagem: Mensagem = {
       id: String(mensagens.length + 1),
       texto: mensagemInput,
-      tipo: "usuario",
+      tipo: "ouvinte",
     };
 
     const novasMensagens = [...mensagens, novaMensagem];
     setMensagens(novasMensagens);
     setMensagemInput("");
 
-    const mensagensUsuario = novasMensagens.filter((m) => m.tipo === "usuario");
+    const mensagensOuvinte = novasMensagens.filter((m) => m.tipo === "ouvinte");
 
-    if (mensagensUsuario.length === 1) {
-      // Primeira resposta automática após 8 segundos
+    if (mensagensOuvinte.length === 1) {
       setTimeout(() => {
         setMensagens((prev) => [
           ...prev,
           {
             id: String(prev.length + 1),
-            texto: "Olá, posso ajudar?",
-            tipo: "ouvinte",
+            texto: "Me sinto meio...pesado(?) Acho que essa é a palavra certa para dizer.\nMe sinto nervose com algumas coisas que têm acontecido na minha rotina e tal...",
+            tipo: "usuario",
           },
         ]);
-      }, 5000);
-    } else if (mensagensUsuario.length === 2) {
-      // Segunda resposta automática após 20 segundos
-      setTimeout(() => {
-        setMensagens((prev) => [
-          ...prev,
-          {
-            id: String(prev.length + 1),
-            texto: "Claro. Estou aqui para te escutar. Sinta-se à vontade de dizer qualquer coisa.",
-            tipo: "ouvinte",
-          },
-        ]);
-      }, 10000);
+      }, 20000);
     }
+
+    if (mensagensOuvinte.length == 2){
+        //Mensagem final 
+        setTimeout(() => {
+            setMensagens((prev) => [
+                ...prev,
+                {
+                    id: String(prev.length + 1),
+                    texto: "Muito obrigade por ter me escutado. Foi importante.",
+                    tipo: "usuario",
+                },
+            ]);
+
+            //Pop-up de encerramento após 3s
+            setTimeout(() => {
+                setPopupEncerramento(true);
+            }, 3000);
+        }, 20000);
+    }
+  }
+
+  const enviarMensagemCVV = () => {
+    setMensagens((prev) => [
+        ...prev,
+        {
+            id: String(prev.length + 1),
+            texto: "Ei… percebo que você está passando por um momento difícil. Quero que saiba que estou aqui com você e quero te ouvir com todo o respeito e carinho. Mas, se em algum momento sentir que as coisas estão pesando demais, o CVV está disponível a qualquer hora no 188. Eles são muito humanos e sabem escutar de verdade. Você não está sozinho(a), tá bom?",
+            tipo: "ouvinte",
+        },
+    ]);
   };
+
+  useEffect(() => {
+    if (chatEncerrado) {
+      router.replace("/"); // ou a rota da página inicial
+    }
+  }, [chatEncerrado]);
 
   useEffect(() => {
     if (tempoRestante <= 0) {
@@ -108,7 +146,7 @@ export default function ChatDesabafoAnon() {
             <Text className="text-[#F4A896] text-2xl font-serif font-bold">{nome}</Text>
             <TouchableOpacity 
               onPress={() => setAcelerar(true)}>
-              <View className="items-center flex-col">   
+              <View className="items-center flex-col bg-transparent">   
                 <Text className="text-[#F4A896] text-sm leading-tight font-serif font-bold">Temporizador</Text>
                 <Text className="text-[#F4A896] text-2xl leading-tight font-serif font-bold text-center">{formatarTempo(tempoRestante)}</Text>
               </View>
@@ -117,18 +155,24 @@ export default function ChatDesabafoAnon() {
 
       {/* Botões abaixo da barra */}
       <View className="w-full h-20 flex-row gap-4 items-center justify-center bg-[#9dc8c8bb]">
-          <TouchableOpacity
-          className="bg-[#e2aea0] w-32 h-14 items-center justify-center"
-          style={{borderRadius: 30}}
-          onPress={() => setPopupReportar(true)}>
-            <Text className="text-[#2E4A62] font-serif text-center text-lg leading-tight">Reportar Usuário</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-          className="bg-[#e2aea0] w-32 h-14 items-center justify-center"
-          style={{borderRadius: 30}}
-          onPress={() => setPopupFinalizar(true)}>
-            <Text className="text-[#2E4A62] font-serif text-center text-lg leading-tight">Finalizar{'\n'}Chat</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+        className="bg-[#e2aea0] w-32 h-14 items-center justify-center"
+        style={{borderRadius: 30}}
+        onPress={enviarMensagemCVV}>
+            <Text className="text-[#2E4A62] font-serif text-center text-lg leading-tight">Recomendar CVV</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+        className="bg-[#e2aea0] w-32 h-14 items-center justify-center"
+        style={{borderRadius: 30}}
+        onPress={() => setPopupReportar(true)}>
+        <Text className="text-[#2E4A62] font-serif text-center text-lg leading-tight">Reportar Usuário</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+        className="bg-[#e2aea0] w-32 h-14 items-center justify-center"
+        style={{borderRadius: 30}}
+        onPress={() => setPopupFinalizar(true)}>
+        <Text className="text-[#2E4A62] font-serif text-center text-lg leading-tight">Finalizar{'\n'}Chat</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Corpo do chat */}
@@ -139,8 +183,8 @@ export default function ChatDesabafoAnon() {
             <View key={m.id}
             className={`my-2 max-w-[75%] px-4 py-4  ${
               m.tipo === "usuario"
-                ? "bg-[#8DAE95] self-end rounded-tl-3xl rounded-bl-3xl rounded-tr-xl rounded-br-xl pl-6"
-                : "bg-[#FDF6EC] self-start rounded-tr-3xl rounded-br-3xl rounded-tl-xl rounded-bl-xl pr-6"
+                ? "bg-[#8DAE95] self-start rounded-tr-3xl rounded-br-3xl rounded-tl-xl rounded-bl-xl pr-6"
+                : "bg-[#FDF6EC] self-end rounded-tl-3xl rounded-bl-3xl rounded-tr-xl rounded-br-xl pl-6"
             }`}>
               <Text className="text-[#2E4A62] font-serif">{m.texto}</Text>
             </View>
@@ -188,7 +232,7 @@ export default function ChatDesabafoAnon() {
                style={{ borderRadius: 30}}
                onPress={() => {
                 setPopupTempo(false);
-                router.push('./avaliacao')}}>
+                router.push('/')}}>
                 <Text className="text-[#FDF6EC] font-serif font-bold text-xl leading-tight text-center">Sair</Text>
               </TouchableOpacity>
             </View>
@@ -300,7 +344,7 @@ export default function ChatDesabafoAnon() {
                 style={{ borderRadius: 30}}
                 onPress={() => {
                   setPopupFinalizar(false);
-                  router.push('/avaliacao');
+                  router.push('/');
                   }}>
                     <Text className="text-[#FDF6EC] font-serif font-bold text-lg leading-tight text-center">Sim</Text>
                 </TouchableOpacity>
@@ -313,6 +357,27 @@ export default function ChatDesabafoAnon() {
            </View>
         </View>
       </Modal>
+
+      {/* Pop-up de encerramento */}
+      {popEncerramento && (
+        <View className="absolute inset-0 bg-black/40 items-center justify-center z-50">
+        <View className="bg-[#ffffffc2] w-11/12 p-6  items-center"
+        style={{borderRadius: 30}}>
+          <Text className="text-[#2E4A62] font-serif text-lg mb-4 text-center">
+            A pessoa que estava desabafando encerrou o chat.
+          </Text>
+          <TouchableOpacity
+            className="bg-[#f4a896] px-6 py-3 rounded-full"
+            onPress={() => {
+              setPopupEncerramento(false);
+              setChatEncerrado(true);
+            }}
+          >
+            <Text className="text-[#2E4A62] font-bold font-serif text-lg">OK</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      )}
 
       
 

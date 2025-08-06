@@ -1,0 +1,26 @@
+1. Falar sobre o que é o app (Saúde Mental, parecido com o CVV, só que mais informal.)
+2. Mostrar o pop-up de Objetivo
+3. Clicar em Participar
+4. Explicar o input de apelido
+5. Ir no pop-up Como Participar (Desabafar/ Ouvir / Tempo / Denúncia)
+6. Se colocar NirvanaS2, ir em Quero desabafar
+7. Excluir o 'Anônimo' e ir em VampiraVintage
+8. Conversar com o ouvinte. 
+9. Mostrar o temporizador, clicar no tempo e mostrar o + 30 e depois o de Sair
+10. Mostrar o negocio de avaliar
+11. 
+
+
+
+
+NOMES:
+    DESABAFAR:     (Quando clicar em Quero Ouvir sob o nome de VampiraVintage, vai aparecer o alerta de denuncia)
+        GatoDeBotas
+        Anônimo
+        bolodecenouras2  (denunciar esse no quero ouvir)
+
+
+    OUVINTE:     (Quando clicar em Quero Desabafar sob o nome bolodecenouras2, vai aparecer o alerta de denuncia)
+        Anônimo
+        VampiraVintage      (denunciar esse no quero desabafar)
+        NirvanaS2

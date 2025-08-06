@@ -1,4 +1,4 @@
-import { useRouter, useNavigation } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useEffect, useState,useRef } from "react";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 import { View, Image, TouchableOpacity, Text, ScrollView, Animated, Easing } from "react-native";
@@ -44,6 +44,8 @@ export default function Desabafar() {
   const [popup2, setPopup2] = useState(false);
   const [popup3, setPopup3] = useState(false);
   const [recusados, setRecusados] = useState(0);
+  const { apelido } = useLocalSearchParams();
+  const temDenuncia = apelido === "bolodecenouras2";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -199,8 +201,16 @@ export default function Desabafar() {
             </View>
           </View>
           )}
-
         </ScrollView>
+      )}
+
+{temDenuncia && (
+        <View className="absolute bottom-32 z-10 w-11/12 items-center bg-[#ffffff88] p-5"
+        style={{borderRadius: 30}}>
+          <Text className="text-[#A71212] font-serif text-sm text-center font-bold">
+            ⚠️ Este perfil possui 1 denúncia. O limite é 7 antes de ser banido.
+          </Text>
+        </View>
       )}
 
       {/* Rodapé */}
