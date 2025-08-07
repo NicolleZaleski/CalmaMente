@@ -185,7 +185,7 @@ export default function Desabafar() {
                 </TouchableOpacity>
                 <TouchableOpacity className="bg-[#A71212] w-16 h-8 rounded-full items-center justify-center mr-3"
                   onPress={() => {
-                    setPopup2(false);
+                    setPopup3(false);
                     setRecusados(prev => {
                       const novo = prev + 1;
                       if (novo === 3){

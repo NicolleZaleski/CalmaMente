@@ -203,7 +203,7 @@ export default function Participar() {
                       </Text>
                     </View>
                     <Text className="text-[#2E4A62] w-full font-mono text-base font-light text-justify">
-                      <Text className="font-bold font-serif">Quero Desabafar{"\n"}</Text>
+                      <Text className="font-bold font-serif">Denúncia{"\n"}</Text>
                       No CalmaMente, prezamos por um ambiente seguro, respeitoso e acolhedor para todos que desejam desabafar ou oferecer escuta.{"\n"}
                       Por isso, implementamos um sistema de denúncias para ajudar a proteger nossa comunidade de comportamentos inadequados ou ofensivos.{"\n\n"}
 

@@ -61,7 +61,7 @@ export default function ChatOuvinte() {
           ...prev,
           {
             id: String(prev.length + 1),
-            texto: "Me sinto meio...pesado(?) Acho que essa é a palavra certa para dizer.\nMe sinto nervose com algumas coisas que têm acontecido na minha rotina e tal...",
+            texto: "Me sinto meio...pesado(?) Acho que essa é a palavra certa para dizer.\nMe sinto nervoso com algumas coisas que têm acontecido na minha rotina e tal...",
             tipo: "usuario",
           },
         ]);
